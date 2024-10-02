@@ -1,0 +1,13 @@
+{
+  "name": "Mahmoud/acf-fields-generator",
+  "description": "A simple package to create ACF objects for use in the Flynt theme.",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "AcfGenerator\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.4"
+  }
+}

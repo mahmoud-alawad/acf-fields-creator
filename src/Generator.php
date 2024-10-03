@@ -178,6 +178,81 @@ class Generator
     }
 
     /**
+     * set field width
+     * @param string $width
+     * @param array $field
+     * @return self
+     */
+    public function setWidth(string $width, array $field = [])
+    {
+        if (!empty($this->fields)) {
+            $fieldParam = (!empty($field) && is_array($field)) ? $field : $this->currentField;
+            $this->updateField($fieldParam, [
+                'wrapper' => [
+                    'class' => '',
+                    'id' => '',
+                    'width' => $width
+                ]
+            ]);
+        }
+        return $this;
+    }
+
+    /**
+     * recursive update of field
+     * @param array $field
+     * @param mixed $updates
+     * @return self
+     */
+    private function updateField($field, $updates)
+    {
+        $fields = &$this->fields;
+        if (!empty($fields) && !empty($field)) {
+            foreach ($fields as  &$value) {
+
+                if (!empty($value) && array_key_exists('name', $value) && $value['name'] === $field['name']) {
+                    foreach ($updates as $updateKey => $updateValue) {
+                        if ($value[$updateKey]) {
+                            $value[$updateKey] = $updateValue;
+                        }
+                    }
+                } else if (!empty($value['sub_fields'])) {
+                    $this->updateSubFields($field, $value, $updates);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Summary of updateSubFields
+     * @param mixed $field
+     * @param mixed $value
+     * @param mixed $updates
+     * @return self
+     */
+    private function updateSubFields($field, &$value, $updates)
+    {
+        if (empty($value) && empty($value['sub_fields'])) {
+            return  $this;
+        }
+        foreach ($value['sub_fields'] as  &$subValue) {
+            if ($subValue['name'] == $field['name']) {
+                foreach ($updates as $key => $updateValue) {
+                    if ($subValue[$key]) {
+                        $subValue[$key] = $updates[$key];
+                    }
+                }
+            } else if (!empty($subValue['sub_fields'])) {
+                $this->updateSubFields($field, $subValue['sub_fields'], $updates);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
      * 
      * @param string $name
      * @param string $label

@@ -9,7 +9,7 @@ const DropDown = forwardRef<HTMLElement, ComponentProps>(
   ({ title, active, ...rest }, ref) => {
     return (
       <details
-        ref={ref}
+        ref={ref as React.LegacyRef<HTMLDetailsElement>}
         className="group relative flex cursor-pointer flex-col"
         open={active}
       >

@@ -1,14 +1,18 @@
-import { forwardRef, Ref, useEffect } from "react";
+import { forwardRef, Ref } from "react";
 import { Link } from "react-router-dom";
 
 type ComponentProps = React.HTMLAttributes<Element> & {
   active?: boolean;
   elementType?: "div" | "button" | "a" | "link";
   variant?: "primary" | "secondary";
+  to?: string;
 };
 
 const Element = forwardRef<HTMLElement, ComponentProps>(
-  ({ elementType = "button", variant = "primary", children, ...rest }, ref) => {
+  (
+    { elementType = "button", variant = "primary", children, to, ...rest },
+    ref
+  ) => {
     const buttonPrimaryClasses = `text-zinc-900 hover:opacity-75 duration-200 ease-linear no-underline`;
     const buttonSecondaryClasses = `text-white bg-primary rounded-sm px-4 py-2 hover:opacity-75 duration-200 ease-linear no-underline`;
     const buttonClasses =
@@ -48,7 +52,7 @@ const Element = forwardRef<HTMLElement, ComponentProps>(
         return (
           <Link
             ref={ref as Ref<HTMLAnchorElement>}
-            to={rest.to}
+            to={to!}
             {...rest}
             className={`${buttonClasses} ${rest.className}`}
           >
@@ -63,7 +67,6 @@ const Element = forwardRef<HTMLElement, ComponentProps>(
 
 const Button = forwardRef<HTMLElement, ComponentProps>(
   ({ active, elementType = "button", variant = "primary", ...rest }, ref) => {
-  
     return (
       <Element
         {...rest}

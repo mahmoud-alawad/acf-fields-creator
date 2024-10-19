@@ -72,7 +72,7 @@ const Header = () => {
       <div className="container relative z-10 flex justify-between items-center py-4">
         <Logo className="logo flex items-center flex-wrap" />
         <Hamburger
-          ref={hamburgerRef}
+          ref={hamburgerRef as React.LegacyRef<HTMLButtonElement>}
           onClick={() => setActive(!active)}
           active={active}
           className="lg:hidden"
@@ -81,7 +81,7 @@ const Header = () => {
       </div>
       {isComponentVisible && (
         <SideBar
-          ref={ref}
+          ref={ref as React.LegacyRef<HTMLDivElement>}
           active={active}
           onClose={() => setActive(!active)}
           className="lg:hidden"

@@ -1,7 +1,4 @@
-import { CodeBlock, CopyBlock, dracula } from "react-code-blocks";
-import { useFetch } from "../hooks/useFetch";
-import { useEffect, useState } from "react";
-import { Button } from "../components";
+import { CodeBlock, dracula } from "react-code-blocks";
 import { useMethods } from "../hooks/useMethods";
 
 type ComponentProps = {
@@ -12,7 +9,7 @@ type ComponentProps = {
 };
 
 const Api = (props: ComponentProps) => {
-  const { isLoading, methods, error } = useMethods();
+  const { isLoading, methods } = useMethods();
   const code = `$myFields = (new AcfCreate())`;
   return (
     <div
@@ -32,7 +29,8 @@ const Api = (props: ComponentProps) => {
       />
 
       {!isLoading &&
-        methods.map((method, index) => (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        methods.map((method: any, index: number) => (
           <div key={index} id={method.name} className="mt-6">
             <div>{method.name}</div>
             <CodeBlock

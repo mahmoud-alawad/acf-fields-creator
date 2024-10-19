@@ -46,6 +46,7 @@ function App() {
               <ul>
                 {isLoading
                   ? "Loading..."
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   : methods.map((method: any, index: number) => (
                       <li key={index} className="py-1">
                         <Button

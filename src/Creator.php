@@ -1,8 +1,8 @@
 <?php
 
-namespace AcfGenerator;
+namespace AcfCreator;
 
-class Generator extends Base
+class Creator extends Base
 {
     public function __construct()
     {
@@ -13,15 +13,38 @@ class Generator extends Base
 
 
     /**
+     * the count of fields
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->fields);
+    }
+
+    /**
      * returns field by it name example (new AcfCreate())->getField('title')
      * @param string $name
      * @return array
      */
-    public function getField(string $name)
+    protected function getField(string $name, $recursiveFields = [])
     {
-        return array_filter($this->fields, function ($item) use ($name) {
-            return !empty($item['name']) &&  $item['name'] === $name;
-        });
+        $count = !empty($recursiveFields) ? count($recursiveFields) : $this->count();
+        $fields = $recursiveFields ?: $this->fields;
+        if (empty($name) || $count == 0) {
+            return [];
+        } else {
+            $fieldResult = [];
+            for ($i = 0; $i < $count; $i++) {
+                $field = $fields[$i];
+                if (!empty($field['name']) && $field['name'] === $name) {
+                    $fieldResult = $field;
+                    break;
+                } else if (!empty($field['sub_fields'])) {
+                    $fieldResult = $this->getField($name, $field['sub_fields']);
+                }
+            }
+            return $fieldResult;
+        }
     }
 
     /**
@@ -148,7 +171,8 @@ class Generator extends Base
 
 
     /**
-     * Summary of setConditionalLogic
+     * set conditional logic for current field 
+     * operator = '==', '!=empty', !=,'==pattern', '==empty', '=contains',
      * @param mixed $field
      * @param mixed $operator
      * @param mixed $value
@@ -157,17 +181,19 @@ class Generator extends Base
     public function setConditionalLogic($field, $operator, $value)
     {
         if (!empty($this->fields)) {
-            if (!key_exists('conditional_logic', $this->fields[count($this->fields) - 1])) {
-                $this->fields[count($this->fields) - 1]['conditional_logic'] = [];
-            }
+            $fieldParam = (!empty($field) && is_array($field)) ? $field : $this->exactCurrentField;
+            $this->updateField($fieldParam, [
+                'conditional_logic' => [
+                    [
+                        [
+                            'fieldPath' => $field,
+                            'operator' => $operator,
+                            'value' => $value
+                        ],
+                    ],
 
-            $this->fields[count($this->fields) - 1]['conditional_logic'][] = [
-                [
-                    'fieldPath' => $field,
-                    'operator' => $operator,
-                    'value' => $value
                 ]
-            ];
+            ]);
         }
         return $this;
     }
@@ -193,6 +219,7 @@ class Generator extends Base
         return $this;
     }
 
+
     /**
      * Summary of updateField
      * @param mixed $field
@@ -204,14 +231,11 @@ class Generator extends Base
         $fields = &$this->fields;
         if (!empty($fields) && !empty($field)) {
             foreach ($fields as  &$value) {
-
-                if (!empty($value) && array_key_exists('name', $value) && $value['name'] === $field['name']) {
+                if (!empty($value) && is_array($value) && array_key_exists('name', $value) && $value['name'] === $field['name']) {
                     foreach ($updates as $updateKey => $updateValue) {
-                        if ($value[$updateKey]) {
-                            $value[$updateKey] = $updateValue;
-                        }
+                        $value[$updateKey] = $updateValue;
                     }
-                } else if (!empty($value['sub_fields'])) {
+                } else if (isset($value['sub_fields'])) {
                     $this->updateSubFields($field, $value, $updates);
                 }
             }
@@ -219,7 +243,7 @@ class Generator extends Base
         return $this;
     }
 
-    /**
+  /**
      * Summary of updateSubFields
      * @param mixed $field
      * @param mixed $value
@@ -230,18 +254,36 @@ class Generator extends Base
     {
         if (empty($value) && empty($value['sub_fields'])) {
             return  $this;
-        }
-        foreach ($value['sub_fields'] as  &$subValue) {
-            if ($subValue['name'] == $field['name']) {
-                foreach ($updates as $key => $updateValue) {
-                    if ($subValue[$key]) {
-                        $subValue[$key] = $updates[$key];
+        } else if (!empty($value['sub_fields'])) {
+            foreach ($value['sub_fields'] as  &$subValue) {
+                if (!empty($subValue) && $subValue['name'] == $field['name']) {
+                    foreach ($updates as $key => $updateValue) {
+                        $subValue[$key] = $updateValue;
                     }
+                } else if (isset($subValue['sub_fields'])) {
+                    $this->updateSubFields($field, $subValue['sub_fields'], $updates);
                 }
-            } else if (!empty($subValue['sub_fields'])) {
-                $this->updateSubFields($field, $subValue['sub_fields'], $updates);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * clone a field by name passing nothing by default will clone exact current field
+     * @param string $name
+     * @param array $overrides
+     * @return \theme\AcfCreate
+     */
+    public function clone(string $name = '', array $overrides = []): self
+    {
+        $fields = !empty($name) ? $this->getField($name) : $this->exactCurrentField;
+        $this->createField(
+            $fields['name'] ?? '',
+            $fields['label'] ?? '',
+            $fields['type'] ?? '',
+            $overrides
+        );
 
         return $this;
     }

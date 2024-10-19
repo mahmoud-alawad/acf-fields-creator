@@ -1,0 +1,120 @@
+@import url('./font.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --scrollbar-width: 0px;
+  --window-height: 100vh;
+  --inner-viewport-width: calc(100vw - var(--scrollbar-width));
+  --container-max-width: 100%;
+  --container-max-width-sm: 600px;
+  --container-max-width-md: 760px;
+  --container-max-width-lg: 960px;
+  --container-max-width-xl: 1200px;
+  --container-max-width-2xl: 1560px;
+  --container-x-margin: calc((var(--inner-viewport-width) - var(--container-max-width)) / 2);
+  --container-boxed-margin: calc(((var(--inner-viewport-width) - min(var(--container-max-width), var(--inner-viewport-width))) / 2));
+  --footer-height: 0;
+}
+
+@media screen(sm) {
+  :root {
+    --container-max-width: var(--container-max-width-sm);
+  }
+}
+
+@media screen(md) {
+  :root {
+    --container-max-width: var(--container-max-width-md);
+  }
+}
+
+@media screen(lg) {
+  :root {
+    --container-max-width: var(--container-max-width-lg);
+  }
+}
+
+@media screen(xl) {
+  :root {
+    --container-max-width: var(--container-max-width-xl);
+  }
+}
+
+@media screen(2xl) {
+  :root {
+    --container-max-width: var(--container-max-width-2xl);
+  }
+}
+
+@layer base {
+  :root {
+    --gutter: theme('container.padding');
+  }
+}
+
+@layer components {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply text-base font-display;
+  }
+
+  #app {
+    @apply relative z-10;
+  }
+
+  .container {
+    max-width: var(--container-max-width);
+  }
+}
+
+.h1 {
+  @apply text-4xl font-medium text-zinc-900 lg:text-[120px] lg:leading-[110px];
+}
+
+.h2 {
+  @apply text-2xl xl:text-[56px] xl:leading-[66px];
+}
+
+.h3 {
+  @apply text-[26px] leading-[28px];
+}
+
+.h4 {
+  @apply text-[24px] leading-[24px];
+}
+
+.display-1 {
+  @apply text-[88px] leading-[80px]
+}
+
+.display-2 {
+  @apply text-5xl;
+}
+
+.display-3 {
+  @apply text-[28px] leading-[32px];
+}
+
+.cta-navigation {
+  @apply relative before:absolute before:top-[120%];
+  @apply before:left-0 before:w-full before:h-px before:pointer-events-none;
+  @apply before:duration-500 before:ease-in-out;
+}
+
+.cta-navigation::before {
+  transform-origin: 100% 50%;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.3s;
+  background: currentColor;
+}
+
+.cta-navigation:hover::before {
+  transform-origin: 0% 50%;
+  transform: scale3d(1, 1, 1);
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace AcfGenerator;
+namespace AcfCreator;
 
 class Base
 {
@@ -72,6 +72,7 @@ class Base
 
         return $field;
     }
+    
     protected function convertToTitleCase($input)
     {
         if (strlen($input) <= 2) {
@@ -93,7 +94,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addText(string $name, string $label = '', array $overrides = []): self
     {
@@ -121,7 +122,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addAccordion(string $name, string $label = '', array $overrides = []): self
     {
@@ -146,7 +147,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addOembed(string $name, string $label = '', array $overrides = []): self
     {
@@ -171,7 +172,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addTaxonomy(string $name, string $label = '', array $overrides = []): self
     {
@@ -201,7 +202,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addRelationShip(string $name, string $label = '', array $overrides = []): self
     {
@@ -239,7 +240,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addPostObject(string $name, string $label = '', array $overrides = []): self
     {
@@ -280,7 +281,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addPageLink(string $name, string $label = '', array $overrides = []): self
     {
@@ -318,7 +319,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addNumber(string $name, string $label = '', array $overrides = []): self
     {
@@ -346,7 +347,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addDate(string $name, string $label = '', array $overrides = []): self
     {
@@ -371,7 +372,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addTime(string $name, string $label = '', array $overrides = []): self
     {
@@ -395,7 +396,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addImage(string $name, string $label = '', array $overrides = []): self
     {
@@ -428,7 +429,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addFile(string $name, string $label = '', array $overrides = []): self
     {
@@ -457,7 +458,7 @@ class Base
      * @param string $label
      * @param array $choices
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addSelect(string $name, string $label = '', array $choices = [], array $overrides = []): self
     {
@@ -489,7 +490,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addEmail(string $name, string $label = '',  array $overrides = []): self
     {
@@ -515,7 +516,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addTrueFalse(string $name, string $label = '',  array $overrides = []): self
     {
@@ -545,7 +546,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addRepeater(string $name, string $label = '',   array $overrides = []): self
     {
@@ -562,7 +563,7 @@ class Base
         $repeaterField = array_merge(
             self::$defaultFields,
             [
-                'label' => $label,
+                'label' => empty($label) ? $this->convertToTitleCase($name) : $label,
                 'name' => $name,
                 'type' => self::REPEATER,
             ],
@@ -587,7 +588,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addGroup(string $name, string $label = '',   array $overrides = []): self
     {
@@ -601,7 +602,7 @@ class Base
         $groupField = array_merge(
             self::$defaultFields,
             [
-                'label' => $label,
+                'label' => empty($label) ? $this->convertToTitleCase($name) : $label,
                 'name' => $name,
                 'type' => self::GROUP,
             ],
@@ -623,7 +624,7 @@ class Base
 
     /**
      * Summary of endGroup
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function endGroup(): self
     {
@@ -633,7 +634,7 @@ class Base
 
     /**
      * Summary of endRepeater
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function endRepeater(): self
     {
@@ -646,7 +647,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addLink(string $name, string $label = '',  array $overrides = []): self
     {
@@ -665,7 +666,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addGallery(string $name, string $label = '',  array $overrides = []): self
     {
@@ -703,7 +704,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addTextarea(string $name, string $label = '', array $overrides = []): self
     {
@@ -730,7 +731,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addWysiwg(string $name, string $label = '', array $overrides = []): self
     {
@@ -757,7 +758,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addTab(string $name, string $label = '',  array $overrides = []): self
     {
@@ -780,7 +781,7 @@ class Base
      * @param string $name
      * @param string $label
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addMessage(string $name, string $label = '',  array $overrides = []): self
     {
@@ -806,7 +807,7 @@ class Base
      * @param string $label
      * @param array $color
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addColor(string $name, string $label = '',  string $color = '#1e335e', array $overrides = []): self
     {
@@ -829,7 +830,7 @@ class Base
      * @param string $label
      * @param array $coords
      * @param array $overrides
-     * @return \AcfGenerator\Generator
+     * @return self
      */
     public function addGoogleMap(string $name, string $label = '',  array $coords = ['lat' => '', 'lng' => ''], array $overrides = []): self
     {

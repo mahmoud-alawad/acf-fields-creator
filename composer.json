@@ -1,5 +1,5 @@
 {
-  "name": "mahmoud-alawad/acf-fields-generator",
+  "name": "mahmoud-alawad/acf-fields-creator",
   "description": "A simple package to create ACF objects for use in the Flynt theme.",
   "type": "library",
   "autoload": {

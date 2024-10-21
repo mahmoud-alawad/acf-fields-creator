@@ -10,7 +10,7 @@ const DropDown = forwardRef<HTMLElement, ComponentProps>(
     return (
       <details
         ref={ref as React.LegacyRef<HTMLDetailsElement>}
-        className="group relative flex cursor-pointer flex-col"
+        className={`group relative flex cursor-pointer flex-col ${rest.className}`}
         open={active}
       >
         <summary className="-mx-4 rounded-md px-3 py-3 transition-colors duration-100 _no-triangle block select-none outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-brand  dark:focus-visible:ring-gray-100 hover:bg-gray-50 active:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800 dark:active:bg-gray-700">

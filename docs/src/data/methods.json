@@ -1,0 +1,296 @@
+[
+    {
+        "name": "__construct",
+        "params": [
+            "[]"
+        ]
+    },
+    {
+        "name": "addAccordion",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add an accordion field"
+    },
+    {
+        "name": "addColor",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "string $color = '#1e335e'",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a color field"
+    },
+    {
+        "name": "addDate",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a date field"
+    },
+    {
+        "name": "addEmail",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add an email field"
+    },
+    {
+        "name": "addFile",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a file field"
+    },
+    {
+        "name": "addGallery",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a file field"
+    },
+    {
+        "name": "addGoogleMap",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $coords = ['lat' => ''",
+            "'lng' => '']",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a file field"
+    },
+    {
+        "name": "addGroup",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a file field"
+    },
+    {
+        "name": "addImage",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addLink",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addMessage",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addNumber",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addOembed",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addPageLink",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addPostObject",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addRelationShip",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addRepeater",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addSelect",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $choices = []",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a file field"
+    },
+    {
+        "name": "addTab",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addTaxonomy",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addText",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addTextarea",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addTime",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ],
+        "return": "self",
+        "description": "Add a file field"
+    },
+    {
+        "name": "addTrueFalse",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "addWysiwg",
+        "params": [
+            "string $name",
+            "string $label = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "clone",
+        "params": [
+            "string $name = ''",
+            "array $overrides = []"
+        ]
+    },
+    {
+        "name": "count",
+        "params": [],
+        "return": "number",
+        "description": "Return the length of fields"
+    },
+    {
+        "name": "endGroup",
+        "params": [],
+        "return": "self",
+        "description": "Close a group"
+    },
+    {
+        "name": "endRepeater",
+        "params": [],
+        "return": "self",
+        "description": "Close a repeater"
+    },
+    {
+        "name": "getCurrentField",
+        "params": [
+            "$recursiveFields = []"
+        ],
+        "return": "self",
+        "description": "Returns the current field"
+    },
+    {
+        "name": "getFields",
+        "params": [],
+        "return": "self",
+        "description": "Return array of all fields"
+    },
+    {
+        "name": "setConditionalLogic",
+        "params": [
+            "string $field",
+            "string $operator:  = '==', '!=empty', !=,'==pattern', '==empty', '=contains',",
+            "string $value"
+        ],
+        "return": "self",
+        "description": "set conditional logic for current field"
+    },
+    {
+        "name": "setWidth",
+        "params": [
+            "string|number $width",
+            "string $field = null"
+        ],
+        "return": "self",
+        "description": "Set a width for a field"
+    },
+    {
+        "name": "toJson",
+        "params": [],
+        "return": "string",
+        "description": "Convert fields to JSON"
+    }
+]

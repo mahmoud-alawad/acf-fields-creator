@@ -5,7 +5,7 @@ import { useMethods } from "./hooks/useMethods";
 
 function App() {
   const { hash } = useLocation();
-  const { methods, isLoading } = useMethods();
+  const { methods } = useMethods();
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (hash) {
@@ -44,23 +44,23 @@ function App() {
             </DropDown>
             <DropDown active={true} title="Methods and Properties">
               <ul>
-                {isLoading
-                  ? "Loading..."
+                {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  : methods.map((method: any, index: number) => (
-                      <li key={index} className="py-1">
-                        <Button
-                          elementType="link"
-                          to={`/acf-fields-creator/api#${method.name}`}
-                        >
-                          {method.name}
-                        </Button>
-                      </li>
-                    ))}
+                  methods.map((method: any, index: number) => (
+                    <li key={index} className="py-1">
+                      <Button
+                        elementType="link"
+                        to={`/acf-fields-creator/api#${method.name}`}
+                      >
+                        {method.name}
+                      </Button>
+                    </li>
+                  ))
+                }
               </ul>
             </DropDown>
           </div>
-          <div className="px-4">
+          <div className="px-4 w-full">
             <Outlet />
           </div>
         </div>
